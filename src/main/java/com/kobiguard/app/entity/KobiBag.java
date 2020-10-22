@@ -21,7 +21,7 @@ public class KobiBag {
     private String id;
 
     @OneToMany(mappedBy = "bag", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Product> products;
+    private List<SelectedProduct> products;
 
     private BigDecimal totalPrice;
     private int quantity;
@@ -75,14 +75,6 @@ public class KobiBag {
         this.updatedBy = updatedBy;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -97,5 +89,13 @@ public class KobiBag {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public List<SelectedProduct> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<SelectedProduct> products) {
+        this.products = products;
     }
 }
