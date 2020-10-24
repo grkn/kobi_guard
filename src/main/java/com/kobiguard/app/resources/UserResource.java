@@ -1,35 +1,22 @@
-package com.kobiguard.app.entity;
+package com.kobiguard.app.resources;
 
 import com.kobiguard.app.enumurate.UserType;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Table(name = "kobi_user")
-@Entity
-public class User implements Serializable {
+public class UserResource implements Serializable {
 
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Address> addresses;
-
+    private List<AddressResource> addresses;
     private String name;
     private String lastName;
     private String nickName;
     private Double xCoordinates;
     private Double yCoordinates;
     private String email;
-    private String password;
-
-    @Enumerated(value = EnumType.STRING)
     private UserType userType;
-
+    private String password;
 
     public String getId() {
         return id;
@@ -95,19 +82,19 @@ public class User implements Serializable {
         this.userType = userType;
     }
 
+    public List<AddressResource> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<AddressResource> addresses) {
+        this.addresses = addresses;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
     }
 }
