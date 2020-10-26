@@ -1,5 +1,7 @@
 package com.kobiguard.app.controller;
 
+import com.kobiguard.app.dto.ProductDto;
+import com.kobiguard.app.dto.UserDto;
 import com.kobiguard.app.entity.Address;
 import com.kobiguard.app.entity.Product;
 import com.kobiguard.app.entity.User;
@@ -15,10 +17,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,4 +43,11 @@ public class ProductController extends BaseController {
         product.get().forEach(item -> productResourceList.add(conversionService.convert(item, ProductResource.class)));
         return ResponseEntity.ok(new PageImpl<>(productResourceList, product.getPageable(), product.getTotalElements()));
     }
+
+    @PostMapping("/product")
+    public ResponseEntity<ProductResource> createProduct(@RequestBody @Valid ProductDto productDto) {
+        return ResponseEntity.ok(conversionService.convert(productService.createProduct(conversionService.convert(productDto, Product.class)),
+                ProductResource.class));
+    }
+
 }

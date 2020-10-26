@@ -5,8 +5,10 @@ import com.kobiguard.app.entity.User;
 import com.kobiguard.app.exception.ProductNotFoundException;
 import com.kobiguard.app.exception.UserNotFoundException;
 import com.kobiguard.app.repository.AddressRepository;
+import com.kobiguard.app.repository.KobiFirmRepository;
 import com.kobiguard.app.repository.ProductRepository;
 import com.kobiguard.app.repository.UserRepository;
+import com.kobiguard.app.resources.KobiFirmResource;
 import com.kobiguard.app.security.SecurityService;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
@@ -21,17 +23,15 @@ public class ProductService {
 
     private final ConversionService conversionService;
     private final ProductRepository productRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final DefaultTokenServices defaultTokenServices;
     private final SecurityService securityService;
+    private final KobiFirmService kobiFirmService;
 
-    public ProductService(ConversionService conversionService, ProductRepository productRepository, PasswordEncoder passwordEncoder, AddressRepository addressRepository,
-                       DefaultTokenServices defaultTokenServices, SecurityService securityService) {
+    public ProductService(ConversionService conversionService, ProductRepository productRepository
+                       , SecurityService securityService, KobiFirmService firmService) {
         this.conversionService = conversionService;
         this.productRepository = productRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.defaultTokenServices = defaultTokenServices;
         this.securityService = securityService;
+        this.kobiFirmService = firmService;
     }
 
     @Transactional
