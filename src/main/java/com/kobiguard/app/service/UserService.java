@@ -68,4 +68,8 @@ public class UserService {
         }
         return userRepository.save(persistedUser);
     }
+
+    public void deleteUserById(String userId) {
+        userRepository.deleteById(userId);
+    }
 }

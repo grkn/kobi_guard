@@ -61,4 +61,10 @@ public class UserController extends BaseController {
                 convert(userDto, User.class), userId), UserResource.class));
     }
 
+    @DeleteMapping("/user/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("userId") String userId) {
+        userService.deleteUserById(userId);
+        return ResponseEntity.noContent().build();
+    }
+
 }
