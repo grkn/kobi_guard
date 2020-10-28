@@ -46,7 +46,8 @@ public class ProductController extends BaseController {
 
     @PostMapping("/product")
     public ResponseEntity<ProductResource> createProduct(@RequestBody @Valid ProductDto productDto) {
-        return ResponseEntity.ok(conversionService.convert(productService.createProduct(conversionService.convert(productDto, Product.class)),
+        return ResponseEntity.ok(conversionService.convert(productService.createProduct(conversionService
+                        .convert(productDto, Product.class)),
                 ProductResource.class));
     }
 

@@ -4,6 +4,8 @@ import com.kobiguard.app.entity.User;
 import com.kobiguard.app.resources.UserResource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -63,6 +65,18 @@ public class SecurityService {
                 + "('" + userResource.getNickName() + "','" + userResource.getPassword()
                 + "', 'read,write', 'password,refresh_token,client_credentials,authorization_code'," +
                 " 'ROLE_USER," + simpleAuthorityName + "', 900, 2592000)");
+    }
+
+    public void updateNickNameAndPassword(String nickName, String password, String previousClientId) {
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+
+        namedParameterJdbcTemplate.update("UPDATE OAUTH_CLIENT_DETAILS SET CLIENT_ID = :clientId, CLIENT_SECRET=:password " +
+                "WHERE CLIENT_ID = :previousClientId", new MapSqlParameterSource().addValue("clientId", nickName)
+                .addValue("password", password).addValue("previousClientId", previousClientId));
+
+        namedParameterJdbcTemplate.update("UPDATE OAUTH_ACCESS_TOKEN SET CLIENT_ID = :clientId " +
+                "WHERE CLIENT_ID = :previousClientId", new MapSqlParameterSource().addValue("clientId", nickName)
+                .addValue("previousClientId", previousClientId));
     }
 
     public static class CustomAuthentication implements Authentication {

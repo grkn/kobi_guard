@@ -33,5 +33,4 @@ public class AddressController extends BaseController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(addressResourceList);
     }
-    
 }

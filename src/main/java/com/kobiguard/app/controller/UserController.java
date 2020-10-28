@@ -17,13 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  CRUD : CREATE , READ ,UPDATE ,DELETE
- *  findById --> GET
- *  findAll --> GET
- *  deleteById --> DELETE
- *  create --> POST
- *  update --> PUT, PATCH
- *
+ * CRUD : CREATE , READ ,UPDATE ,DELETE
+ * findById --> GET
+ * findAll --> GET
+ * deleteById --> DELETE
+ * create --> POST
+ * update --> PUT, PATCH
  */
 @RestController
 public class UserController extends BaseController {
@@ -53,6 +52,13 @@ public class UserController extends BaseController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<UserResource> getUser(@PathVariable("userId") String userId) {
         return ResponseEntity.ok(conversionService.convert(userService.findUserById(userId), UserResource.class));
+    }
+
+
+    @PutMapping("/user/{userId}")
+    public ResponseEntity<UserResource> updateUser(@PathVariable("userId") String userId, @RequestBody UserDto userDto) {
+        return ResponseEntity.ok(conversionService.convert(userService.updateUser(conversionService.
+                convert(userDto, User.class), userId), UserResource.class));
     }
 
 }
