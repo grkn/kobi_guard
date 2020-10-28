@@ -3,9 +3,11 @@ package com.kobiguard.app.converter;
 import com.kobiguard.app.entity.KobiFirm;
 import com.kobiguard.app.resources.KobiFirmResource;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
+@Component
 public class KobiFirmToKobiFirmResourceConverter implements Converter<KobiFirm, KobiFirmResource> {
     private AddressToAddressResourceConverter addressToAddressResourceConverter;
     private ProductToProductResourceConverter productToProductResourceConverter;

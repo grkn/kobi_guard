@@ -36,7 +36,6 @@ public class ProductService {
 
     @Transactional
     public Product createProduct(Product product) {
-        //productRepository.saveAll(user.getAddresses());
         Product createdProduct = productRepository.save(product);
         return createdProduct;
     }

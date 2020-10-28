@@ -3,9 +3,11 @@ package com.kobiguard.app.converter;
 import org.springframework.core.convert.converter.Converter;
 import com.kobiguard.app.entity.Product;
 import com.kobiguard.app.resources.ProductResource;
+import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
+@Component
 public class ProductToProductResourceConverter implements Converter<Product, ProductResource> {
     private AttributeToAttributeResourceConverter attributeToAttributeResourceConverter ;
     public ProductToProductResourceConverter(AttributeToAttributeResourceConverter attributeToAttributeResourceConverter){

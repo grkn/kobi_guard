@@ -1,40 +1,37 @@
 package com.kobiguard.app.resources;
 
-import com.kobiguard.app.entity.Attribute;
 import com.kobiguard.app.entity.KobiFirm;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 public class ProductResource implements  Serializable {
-    private String Id;
-    private String Name;
-    private BigDecimal Price;
+    private String id;
+    private String name;
+    private BigDecimal price;
     private KobiFirm firm;
     private byte[] photo;
     private List<AttributeResource> attributes;
     private Date createdDate;
     private Date updatedDate;
 
-    public String getId() {return Id;}
+    public String getId() {return id;}
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
-    public String getName() {return Name;}
-    public void setName(String Name) {this.Name=Name;}
+    public String getName() {return name;}
+    public void setName(String Name) {this.name =Name;}
 
 
 
     public BigDecimal getPrice() {
-        return Price;
+        return price;
     }
 
     public void setPrice(BigDecimal price) {
-        Price = price;
+        this.price = price;
     }
 
     public KobiFirm getFirm() {

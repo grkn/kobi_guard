@@ -1,7 +1,7 @@
 package com.kobiguard.app.dto;
 
 import com.kobiguard.app.entity.Attribute;
-import com.kobiguard.app.entity.KobiFirm;
+import com.kobiguard.app.resources.KobiFirmResource;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -10,13 +10,13 @@ import java.util.Date;
 import java.util.List;
 
 public class ProductDto {
-    private String Id;
+    private String id;
     @NotBlank
-    private String Name;
+    private String name;
     @NotNull
-    private BigDecimal Price;
+    private BigDecimal price;
     @NotNull
-    private KobiFirm firm;
+    private KobiFirmDto firm;
 
     private byte[] photo;
 
@@ -27,36 +27,29 @@ public class ProductDto {
     private Date updatedDate;
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public BigDecimal getPrice() {
-        return Price;
+        return price;
     }
 
     public void setPrice(BigDecimal price) {
-        Price = price;
+        this.price = price;
     }
 
-    public KobiFirm getFirm() {
-        return firm;
-    }
-
-    public void setFirm(KobiFirm firm) {
-        this.firm = firm;
-    }
 
     public byte[] getPhoto() {
         return photo;
@@ -88,5 +81,13 @@ public class ProductDto {
 
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public KobiFirmDto getFirm() {
+        return firm;
+    }
+
+    public void setFirm(KobiFirmDto firm) {
+        this.firm = firm;
     }
 }

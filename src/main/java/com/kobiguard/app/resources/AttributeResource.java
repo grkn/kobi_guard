@@ -8,7 +8,6 @@ public class AttributeResource implements Serializable {
     private String id;
     private String key;
     private String value;
-    private Product product;
 
     public String getId() {
         return id;
@@ -32,13 +31,5 @@ public class AttributeResource implements Serializable {
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 }

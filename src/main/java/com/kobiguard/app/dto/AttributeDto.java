@@ -14,7 +14,7 @@ public class AttributeDto {
     @NotBlank
     private String value;
     @NotNull
-    private Product product;
+    private ProductDto product;
 
     public String getId() {
         return id;
@@ -40,11 +40,11 @@ public class AttributeDto {
         this.value = value;
     }
 
-    public Product getProduct() {
+    public ProductDto getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(ProductDto product) {
         this.product = product;
     }
 }
