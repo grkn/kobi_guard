@@ -8,6 +8,8 @@ import com.kobiguard.app.exception.ProductNotFoundException;
 import com.kobiguard.app.repository.AddressRepository;
 import com.kobiguard.app.repository.KobiFirmRepository;
 import com.kobiguard.app.repository.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,8 +34,12 @@ public class KobiFirmService {
 
         return createdKobiFirm;
     }
-    public KobiFirm findKobiFirmServiceById(String kobiFirmServiceId) {
+    public KobiFirm findKobiFirmById(String kobiFirmServiceId) {
         return kobiFirmRepository.findById(kobiFirmServiceId)
                 .orElseThrow(() -> new ProductNotFoundException(String.format("KobiFirm not found by given id : %s", kobiFirmServiceId)));
+    }
+
+    public Page<KobiFirm> findAllKobiFirms(Pageable pageable) {
+        return kobiFirmRepository.findAll(pageable);
     }
 }
