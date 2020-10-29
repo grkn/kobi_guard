@@ -11,6 +11,7 @@ public class AttributeToAttributeResourceConverter implements Converter<Attribut
     @Override
     public AttributeResource convert(Attribute attribute) {
         AttributeResource attributeResource = new AttributeResource();
+        attributeResource.setId(attribute.getId());
         attributeResource.setKey(attribute.getKey());
         attributeResource.setValue(attribute.getValue());
         return attributeResource;

@@ -18,6 +18,7 @@ public class KobiFirmToKobiFirmResourceConverter implements Converter<KobiFirm, 
     @Override
     public KobiFirmResource convert(KobiFirm kobiFirm) {
         KobiFirmResource kobiFirmResource = new KobiFirmResource();
+        kobiFirmResource.setId(kobiFirm.getId());
         kobiFirmResource.setName(kobiFirm.getName());
         kobiFirmResource.setProducts(kobiFirm.getProducts().stream()
                 .map(productToProductResourceConverter::convert)

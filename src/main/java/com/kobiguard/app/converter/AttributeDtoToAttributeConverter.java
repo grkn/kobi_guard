@@ -8,18 +8,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class AttributeDtoToAttributeConverter implements Converter<AttributeDto, Attribute> {
 
-    private final ProductDtoToProductConverter productDtoToProductConverter;
-
-    public AttributeDtoToAttributeConverter(ProductDtoToProductConverter productDtoToProductConverter) {
-        this.productDtoToProductConverter = productDtoToProductConverter;
-    }
-
     @Override
     public Attribute convert(AttributeDto attributeDto) {
         Attribute attribute = new Attribute();
         attribute.setKey(attributeDto.getKey());
-        attribute.setValue(attribute.getValue());
-        attribute.setProduct(productDtoToProductConverter.convert(attributeDto.getProduct()));
-        return null;
+        attribute.setValue(attributeDto.getValue());
+        return attribute;
     }
 }

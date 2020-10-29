@@ -11,7 +11,6 @@ public class ProductResource implements  Serializable {
     private String id;
     private String name;
     private BigDecimal price;
-    private KobiFirm firm;
     private byte[] photo;
     private List<AttributeResource> attributes;
     private Date createdDate;
@@ -32,14 +31,6 @@ public class ProductResource implements  Serializable {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public KobiFirm getFirm() {
-        return firm;
-    }
-
-    public void setFirm(KobiFirm firm) {
-        this.firm = firm;
     }
 
     public byte[] getPhoto() {

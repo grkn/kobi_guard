@@ -10,29 +10,14 @@ import java.util.Date;
 import java.util.List;
 
 public class ProductDto {
-    private String id;
     @NotBlank
     private String name;
     @NotNull
     private BigDecimal price;
-    @NotNull
-    private KobiFirmDto firm;
 
     private byte[] photo;
 
-    private List<Attribute> attributes;
-
-    private Date createdDate;
-
-    private Date updatedDate;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private List<AttributeDto> attributes;
 
     public String getName() {
         return name;
@@ -59,35 +44,11 @@ public class ProductDto {
         this.photo = photo;
     }
 
-    public List<Attribute> getAttributes() {
+    public List<AttributeDto> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(List<Attribute> attributes) {
+    public void setAttributes(List<AttributeDto> attributes) {
         this.attributes = attributes;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
-    }
-
-    public KobiFirmDto getFirm() {
-        return firm;
-    }
-
-    public void setFirm(KobiFirmDto firm) {
-        this.firm = firm;
     }
 }

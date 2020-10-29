@@ -5,22 +5,23 @@ import com.kobiguard.app.entity.Product;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 public class ProductDtoToProductConverter implements Converter<ProductDto, Product> {
 
-    private final KobiFirmDtoToKobiFirmConverter kobiFirmDtoToKobiFirmConverter;
+    private final AttributeDtoToAttributeConverter attributeDtoToAttributeConverter;
 
-    public ProductDtoToProductConverter(KobiFirmDtoToKobiFirmConverter kobiFirmDtoToKobiFirmConverter) {
-        this.kobiFirmDtoToKobiFirmConverter = kobiFirmDtoToKobiFirmConverter;
+    public ProductDtoToProductConverter(AttributeDtoToAttributeConverter attributeDtoToAttributeConverter) {
+        this.attributeDtoToAttributeConverter = attributeDtoToAttributeConverter;
     }
 
     @Override
     public Product convert(ProductDto productDto) {
         Product product = new Product();
-        product.setAttributes(productDto.getAttributes());
-        product.setCreatedDate(productDto.getCreatedDate());
-        product.setUpdatedDate(productDto.getUpdatedDate());
-        product.setFirm(kobiFirmDtoToKobiFirmConverter.convert(productDto.getFirm()));
+        product.setAttributes(productDto.getAttributes().stream()
+                .map(attributeDtoToAttributeConverter::convert)
+                .collect(Collectors.toList()));
         product.setName(productDto.getName());
         product.setPhoto(productDto.getPhoto());
         product.setPrice(productDto.getPrice());
