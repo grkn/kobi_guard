@@ -42,4 +42,8 @@ public class KobiFirmService {
     public Page<KobiFirm> findAllKobiFirms(Pageable pageable) {
         return kobiFirmRepository.findAll(pageable);
     }
+
+    public KobiFirm saveKobiFirm(KobiFirm kobiFirm) {
+        return kobiFirmRepository.save(kobiFirm);
+    }
 }

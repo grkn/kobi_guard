@@ -21,7 +21,7 @@ public class ProductDtoToProductConverter implements Converter<ProductDto, Produ
         Product product = new Product();
         product.setAttributes(productDto.getAttributes().stream()
                 .map(attributeDtoToAttributeConverter::convert)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toSet()));
         product.setName(productDto.getName());
         product.setPhoto(productDto.getPhoto());
         product.setPrice(productDto.getPrice());

@@ -44,11 +44,17 @@ public class ProductController extends BaseController {
         return ResponseEntity.ok(new PageImpl<>(productResourceList, product.getPageable(), product.getTotalElements()));
     }
 
-    @PostMapping("/product")
-    public ResponseEntity<ProductResource> createProduct(@RequestBody @Valid ProductDto productDto) {
+    @PostMapping("/kobifirm/{firmId}/product")
+    public ResponseEntity<ProductResource> createProduct(@RequestBody @Valid ProductDto productDto, @PathVariable String firmId) {
         return ResponseEntity.ok(conversionService.convert(productService.createProduct(conversionService
-                        .convert(productDto, Product.class)),
+                        .convert(productDto, Product.class), firmId),
                 ProductResource.class));
+    }
+
+    @GetMapping("/kobifirm/{firmId}/product")
+    public ResponseEntity<List<ProductResource>> getProductsByFirmId(@PathVariable String firmId) {
+        return ResponseEntity.ok(productService.findByKobiFirmId(firmId).stream().
+                map(product -> conversionService.convert(product, ProductResource.class)).collect(Collectors.toList()));
     }
 
 }
