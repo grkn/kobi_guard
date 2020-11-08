@@ -3,13 +3,11 @@ package com.kobiguard.app.security;
 import com.kobiguard.app.entity.User;
 import com.kobiguard.app.resources.UserResource;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
@@ -57,14 +55,17 @@ public class SecurityService {
 
         defaultTokenServices.createAccessToken(oAuth2Authentication);
 
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
 
-        jdbcTemplate.update("INSERT INTO OAUTH_CLIENT_DETAILS  "
+        template.update("INSERT INTO OAUTH_CLIENT_DETAILS  "
                 + "(client_id, client_secret, scope, authorized_grant_types,  "
                 + "authorities, access_token_validity, refresh_token_validity) VALUES "
-                + "('" + userResource.getNickName() + "','" + userResource.getPassword()
-                + "', 'read,write', 'password,refresh_token,client_credentials,authorization_code'," +
-                " 'ROLE_USER," + simpleAuthorityName + "', 900, 2592000)");
+                + "(:nickName,:password"
+                + ",'read,write', 'password,refresh_token,client_credentials,authorization_code'," +
+                " 'ROLE_USER,:roles, 900, 2592000)", new MapSqlParameterSource()
+                .addValue("nickName", userResource.getNickName())
+                .addValue("password", userResource.getPassword())
+                .addValue("roles", "ROLE_USER," + simpleAuthorityName));
     }
 
     public void updateNickNameAndPassword(String nickName, String password, String previousClientId) {

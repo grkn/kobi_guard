@@ -16,14 +16,6 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * CRUD : CREATE , READ ,UPDATE ,DELETE
- * findById --> GET
- * findAll --> GET
- * deleteById --> DELETE
- * create --> POST
- * update --> PUT, PATCH
- */
 @RestController
 public class UserController extends BaseController {
 
