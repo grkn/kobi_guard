@@ -35,9 +35,10 @@ public class KobiBagService {
     }
 
     public KobiBag createOrGetBag(String userId) {
-        KobiBag kobiBag = userService.findUserById(userId).getKobiBag();
+        User user = userService.findUserById(userId);
+        KobiBag kobiBag = user.getKobiBag();
         if (kobiBag == null) {
-            return saveKobiBag();
+            return saveKobiBag(user);
         }
         return kobiBag;
     }
@@ -59,7 +60,6 @@ public class KobiBagService {
             kobiBag.setTotalPrice(kobiBag.getTotalPrice().add(selectedProduct.getPrice()));
             kobiBag.setQuantity(kobiBag.getQuantity() + 1);
             kobiBag.getProducts().add(selectedProduct);
-
         });
         kobiBagRepository.save(kobiBag);
         user.setKobiBag(kobiBag);
@@ -102,11 +102,13 @@ public class KobiBagService {
         return selectedProductRepository.save(item);
     }
 
-    private KobiBag saveKobiBag() {
+    private KobiBag saveKobiBag(User user) {
         KobiBag kobiBag = new KobiBag();
         kobiBag.setTotalPrice(new BigDecimal(0));
         kobiBag.setQuantity(0);
-        return kobiBagRepository.save(kobiBag);
+        kobiBag.setUser(user);
+        user.setKobiBag(kobiBag);
+        return userService.saveUser(user).getKobiBag();
     }
 
     @Transactional
