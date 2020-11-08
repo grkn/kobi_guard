@@ -7,10 +7,7 @@ import com.kobiguard.app.service.KobiBagService;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -40,6 +37,11 @@ public class KobiBagController extends BaseController {
         addProducts(kobiBagDto, userId);
         removeProducts(kobiBagDto, userId);
         return ResponseEntity.ok(conversionService.convert(kobiBagService.findById(kobiBagResource.getId()), KobiBagResource.class));
+    }
+
+    @GetMapping("/user/{userId}/bag")
+    public ResponseEntity<KobiBagResource> addAndRemoveProduct(@PathVariable String userId) {
+        return ResponseEntity.ok(conversionService.convert(kobiBagService.createOrGetBag(userId), KobiBagResource.class));
     }
 
     private void removeProducts(KobiBagDto kobiBagDto, String userId) {
