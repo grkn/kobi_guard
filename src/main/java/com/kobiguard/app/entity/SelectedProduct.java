@@ -27,6 +27,8 @@ public class SelectedProduct {
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Attribute> attributes;
 
+    private String productId;
+
     @Lob
     private byte[] photo;
 
@@ -87,4 +89,11 @@ public class SelectedProduct {
     }
 
 
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
 }

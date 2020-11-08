@@ -27,8 +27,15 @@ public class User implements Serializable {
     private String email;
     private String password;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private KobiBag kobiBag;
+
+
     @Enumerated(value = EnumType.STRING)
     private UserType userType;
+
+    public User() {
+    }
 
 
     public String getId() {
@@ -109,5 +116,13 @@ public class User implements Serializable {
 
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
+    }
+
+    public KobiBag getKobiBag() {
+        return kobiBag;
+    }
+
+    public void setKobiBag(KobiBag kobiBag) {
+        this.kobiBag = kobiBag;
     }
 }

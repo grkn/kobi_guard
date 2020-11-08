@@ -8,6 +8,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,10 +22,14 @@ public class KobiBag {
     private String id;
 
     @OneToMany(mappedBy = "bag", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<SelectedProduct> products;
+    private List<SelectedProduct> products = new ArrayList<>();
 
     private BigDecimal totalPrice;
     private int quantity;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @CreatedDate
     private Date createdDate;
@@ -97,5 +102,13 @@ public class KobiBag {
 
     public void setProducts(List<SelectedProduct> products) {
         this.products = products;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
