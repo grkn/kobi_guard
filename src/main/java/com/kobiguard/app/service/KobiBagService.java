@@ -36,7 +36,7 @@ public class KobiBagService {
 
     public KobiBag createOrGetBag(String userId) {
         KobiBag kobiBag = userService.findUserById(userId).getKobiBag();
-        if(kobiBag == null) {
+        if (kobiBag == null) {
             return saveKobiBag();
         }
         return kobiBag;
@@ -108,4 +108,26 @@ public class KobiBagService {
         kobiBag.setQuantity(0);
         return kobiBagRepository.save(kobiBag);
     }
+
+    @Transactional
+    public KobiBag completeBag(String userId, String bagId) {
+        User user = userService.findUserById(userId);
+        if (!user.getKobiBag().getId().equals(bagId)) {
+            throw new IllegalArgumentException("User and bag does not match with given userId and bagId");
+        }
+
+        KobiBag temp = new KobiBag();
+        temp.setQuantity(user.getKobiBag().getQuantity());
+        temp.setProducts(user.getKobiBag().getProducts());
+        temp.setTotalPrice(user.getKobiBag().getTotalPrice());
+
+        // notify firm
+        // TODO gilleez
+        // notify firm
+        user.getKobiBag().setUser(null);
+        user.setKobiBag(null);
+
+        return temp;
+    }
 }
+
